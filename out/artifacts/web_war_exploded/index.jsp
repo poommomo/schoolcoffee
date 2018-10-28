@@ -27,26 +27,24 @@
 <sql:query dataSource="jdbc/school_coffee" var="result">
     SELECT * FROM Product
     WHERE IsFeatured = "Y"
-  <%--WHERE category.id = product.category_id--%>
-  <%--WHERE category.id = product.category_id and product.name like '%<%= request.getParameter("name")%>%'--%>
 </sql:query>
 
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="#">School Coffee</a>
+        <a class="navbar-brand" href="index.jsp">School Coffee</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home
+                    <a class="nav-link" href="index.jsp">Home
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Menu</a>
+                    <a class="nav-link" href="product.jsp">Menu</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Contact Us</a>
