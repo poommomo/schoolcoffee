@@ -5,7 +5,22 @@
   Time: 00:15
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
+<sql:query dataSource="jdbc/school_coffee" var="categories">
+    SELECT ID, Name from ProductCategory
+</sql:query>
+<sql:query dataSource="jdbc/school_coffee" var="menu">
+    SELECT * from Product
+    <%
+        String q = (request.getParameter("category") != null ? request.getParameter("category") : "");
+        if (q != "") {
+    %>   WHERE CategoryID = '<%=q%>'
+    <%
+        }
+    %>
+</sql:query>
 <html>
 <head>
     <meta charset="utf-8">
@@ -21,7 +36,7 @@
     <!-- Custom styles  -->
     <link href="css/product.css" rel="stylesheet">
 
-    <title>Products</title>
+    <title>Menu</title>
 </head>
 
 <body>
@@ -29,17 +44,17 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="#">School Coffee</a>
+        <a class="navbar-brand" href="index.jsp">School Coffee</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Home</a>
+                    <a class="nav-link" href="index.jsp">Home</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Menu
+                    <a class="nav-link" href="product.jsp">Menu
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
@@ -60,9 +75,10 @@
 
             <h1 class="my-4">Product</h1>
             <div class="list-group">
-                <a href="#" class="list-group-item">Category 1</a>
-                <a href="#" class="list-group-item">Category 2</a>
-                <a href="#" class="list-group-item">Category 3</a>
+                <a href="product.jsp" class="list-group-item">All</a>
+                <c:forEach var="cat" items="${categories.rows}">
+                    <a href="product.jsp?category=<c:out value="${cat.ID}"/>" class="list-group-item"><c:out value="${cat.Name}"></c:out></a>
+                </c:forEach>
             </div>
 
         </div>
@@ -99,21 +115,39 @@
 
             <div class="row">
 
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                <a href="#">Item One</a>
-                            </h4>
-                            <h5>$24.99</h5>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                <c:forEach var="menu" items="${menu.rows}">
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100">
+                            <a href="#"><img class="card-img-top" src="<c:out value="${menu.ImageURL}"/>" alt=""></a>
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <a href="#"><c:out value="${menu.Name}"/></a>
+                                </h4>
+                                <h5><c:out value="${menu.Price}"/></h5>
+                                <p class="card-text"><c:out value="${menu.Description}"/></p>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </c:forEach>
+
+                <%--<div class="col-lg-4 col-md-6 mb-4">--%>
+                    <%--<div class="card h-100">--%>
+                        <%--<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>--%>
+                        <%--<div class="card-body">--%>
+                            <%--<h4 class="card-title">--%>
+                                <%--<a href="#">Item One</a>--%>
+                            <%--</h4>--%>
+                            <%--<h5>$24.99</h5>--%>
+                            <%--<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>--%>
+                        <%--</div>--%>
+                        <%--<div class="card-footer">--%>
+                            <%--<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
+                <%--</div>--%>
 
             </div>
             <!-- /.row -->
