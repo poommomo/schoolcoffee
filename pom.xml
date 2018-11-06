@@ -16,7 +16,7 @@
                 <configuration>
                     <appName>School Coffee</appName>
                     <processTypes>
-                        <web>java $JAVA_OPTS -cp target/classes:target/dependency/* Main</web>
+                        <web>java $JAVA_OPTS -cp target/classes:target/dependency/* index.jsp</web>
                     </processTypes>
                 </configuration>
             </plugin>
