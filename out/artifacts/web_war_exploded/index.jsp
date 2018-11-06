@@ -47,7 +47,13 @@
                     <a class="nav-link" href="product.jsp">Menu</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="cart.jsp">Cart</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="#">Contact Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Admin Console</a>
                 </li>
             </ul>
         </div>
@@ -79,7 +85,7 @@
                         <p class="card-text"><c:out value="${row.Description}"/></p>
                     </div>
                     <div class="card-footer">
-                        <a href="#" class="btn btn-primary">Find Out More!</a>
+                        <a href="product.jsp" class="btn btn-primary">Find Out More!</a>
                     </div>
                 </div>
             </div>

@@ -9,7 +9,7 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
 <sql:query dataSource="jdbc/school_coffee" var="categories">
-    SELECT ID, Name from ProductCategory
+    SELECT ID, CategoryName from ProductCategory
 </sql:query>
 <sql:query dataSource="jdbc/school_coffee" var="menu">
     SELECT * from Product
@@ -36,6 +36,9 @@
     <!-- Custom styles  -->
     <link href="css/product.css" rel="stylesheet">
 
+    <%--Font Awesome--%>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+
     <title>Menu</title>
 </head>
 
@@ -59,7 +62,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="cart.jsp">Cart</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="#">Contact Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Admin Console</a>
                 </li>
             </ul>
         </div>
@@ -77,7 +86,7 @@
             <div class="list-group">
                 <a href="product.jsp" class="list-group-item">All</a>
                 <c:forEach var="cat" items="${categories.rows}">
-                    <a href="product.jsp?category=<c:out value="${cat.ID}"/>" class="list-group-item"><c:out value="${cat.Name}"></c:out></a>
+                    <a href="product.jsp?category=<c:out value="${cat.ID}"/>" class="list-group-item"><c:out value="${cat.CategoryName}"></c:out></a>
                 </c:forEach>
             </div>
 
@@ -121,33 +130,28 @@
                             <a href="#"><img class="card-img-top" src="<c:out value="${menu.ImageURL}"/>" alt=""></a>
                             <div class="card-body">
                                 <h4 class="card-title">
-                                    <a href="#"><c:out value="${menu.Name}"/></a>
+                                    <%--<a href="product_info.jsp?id=<c:out value="${menu.ID}"/>"><c:out value="${menu.Name}"/></a>--%>
+                                    <a><c:out value="${menu.Name}"/></a>
                                 </h4>
                                 <h5><c:out value="${menu.Price}"/></h5>
                                 <p class="card-text"><c:out value="${menu.Description}"/></p>
                             </div>
                             <div class="card-footer">
-                                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                                <form action="cart">
+                                    <input type="hidden" name="id" value="${menu.ID}"/>
+                                    <input type="hidden" name="name" value="${menu.Name}"/>
+                                    <input type="hidden" name="price" value="${menu.Price}"/>
+                                    <button type="submit" class="btn btn-primary">
+                                    <span style="font-size: 1em; color: white;">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </span>
+                                    </button>
+                                </form>
+
                             </div>
                         </div>
                     </div>
                 </c:forEach>
-
-                <%--<div class="col-lg-4 col-md-6 mb-4">--%>
-                    <%--<div class="card h-100">--%>
-                        <%--<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>--%>
-                        <%--<div class="card-body">--%>
-                            <%--<h4 class="card-title">--%>
-                                <%--<a href="#">Item One</a>--%>
-                            <%--</h4>--%>
-                            <%--<h5>$24.99</h5>--%>
-                            <%--<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>--%>
-                        <%--</div>--%>
-                        <%--<div class="card-footer">--%>
-                            <%--<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
 
             </div>
             <!-- /.row -->
