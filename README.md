@@ -15,7 +15,7 @@ An e-commerce website for a coffee shop.
 ## Deployment
 This website is deployed using Tomee Server which runs in virtual machine from Microsoft Azure. You can access it using below address (If it is not working, please contact me)
 ```
-13.76.4.171:8080
+http://52.163.53.154:8080
 ```
 
 ## Author
